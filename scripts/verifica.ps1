@@ -11,7 +11,7 @@ $fail = 0
 function Ok($m)  { Write-Host "[OK]   $m" -ForegroundColor Green }
 function Ko($m)  { Write-Host "[ERRORE] $m" -ForegroundColor Red; $script:fail++ }
 
-$h1 = '<h1>GPSR - Sicurezza dei prodotti.<br>Informazioni sempre accessibili.</h1>'
+$h1 = '<h1>GPSR - Sicurezza dei prodotti.</h1>'
 $dest = @(
   'https://www.cultofficial.com/pages/gpsr',
   'https://www.docksteps.com/pages/gpsr',
@@ -21,8 +21,8 @@ $dest = @(
 if (-not (Test-Path $file)) {
   Ko "public\index.html mancante: inserire la pagina approvata."
 } else {
-  # Impronta della pagina approvata il 4/11/2026: se cambia, la pagina non e' piu' quella approvata.
-  $md5Approvato = "31FD181B644CFD32F92359A367611751"
+  # Impronta della pagina approvata (revisione H1 del 4/11/2026): se cambia, la pagina non e' piu' quella approvata.
+  $md5Approvato = "3744F3A5888A95DBCCB14A9249328A0D"
   $md5 = (Get-FileHash $file -Algorithm MD5).Hash
   if ($md5 -eq $md5Approvato) { Ok "index.html identico alla versione approvata (MD5)" }
   else { Ko "index.html diverso dalla versione approvata (MD5 $md5). Se e' una nuova versione approvata, aggiornare md5Approvato." }

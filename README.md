@@ -20,7 +20,7 @@ Snodo di link statico gestito da **IN SHOES SRL**. Chi inquadra il QR code su un
 | Sito principale | `in-shoes.it` / `www.in-shoes.it` **fuori dal progetto**: non si toccano. Si lavora solo sul sottodominio `gpsr`. |
 | Hosting | GitHub Pages con GitHub Actions, sull'**account GitHub esistente di CULT Milano `zeis-cult-org`** (nessuna nuova organizzazione o account), repository `gpsr-in-shoes` separato da quello storico. Un secondo account di continuità verrà aggiunto in futuro. |
 | DNS | Nessun record modificato. L'accesso alla gestione DNS si affronta in fase di pubblicazione. |
-| Pagina | `public/index.html` è la versione definitiva approvata, inserita senza modifiche (H1 già aggiornato). |
+| Pagina | `public/index.html` è la versione approvata. Revisione autorizzata il 4/11/2026: H1 ridotto a "GPSR - Sicurezza dei prodotti." e dimensione dell'H1 diminuita. Ogni altra modifica va autorizzata e versionata. |
 | Vecchi QR | Portano a scarpe di tutti e tre i marchi: in futuro andranno alla **homepage dello snodo**, mai direttamente a CULT. |
 | Repository storico | Non modificato. Il futuro redirect riguarderà solo la homepage; i 10 PDF e i loro URL restano. |
 

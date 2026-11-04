@@ -34,8 +34,8 @@ jobs:
           test -f public/index.html
           # Impronta della pagina approvata: una modifica non autorizzata blocca la pubblicazione.
           # Se una nuova versione viene approvata, aggiornare qui e in scripts/verifica.ps1.
-          echo "31fd181b644cfd32f92359a367611751  public/index.html" | md5sum -c -
-          grep -qF '<h1>GPSR - Sicurezza dei prodotti.<br>Informazioni sempre accessibili.</h1>' public/index.html
+          echo "3744f3a5888a95dbccb14a9249328a0d  public/index.html" | md5sum -c -
+          grep -qF '<h1>GPSR - Sicurezza dei prodotti.</h1>' public/index.html
           for u in https://www.cultofficial.com/pages/gpsr https://www.docksteps.com/pages/gpsr https://www.oxs-shoes.it/pages/gpsr; do
             grep -qF "href=\"$u\"" public/index.html
           done

@@ -4,8 +4,8 @@ Data: ____________  Collaudatore: ____________  Commit pubblicato: ____________
 
 ## A. File (in locale)
 - [ ] `scripts/verifica.ps1` termina con esito OK.
-- [ ] `public/index.html` è identico alla versione approvata (MD5 `31fd181b644cfd32f92359a367611751`, verificabile con `certutil -hashfile public\index.html MD5`). Se la pagina viene riapprovata in futuro, aggiornare qui l'MD5.
-- [ ] H1 esatto: `GPSR - Sicurezza dei prodotti.<br>Informazioni sempre accessibili.`
+- [ ] `public/index.html` è identico alla versione approvata (MD5 `3744f3a5888a95dbccb14a9249328a0d`, verificabile con `certutil -hashfile public\index.html MD5`). Se la pagina viene riapprovata in futuro, aggiornare qui l'MD5.
+- [ ] H1 esatto: `GPSR - Sicurezza dei prodotti.`
 - [ ] Nessun riferimento a IN SHOES SRL come fabbricante o responsabile GPSR dei marchi.
 - [ ] Nessuno script, font, CSS, analytics, pixel o cookie esterno.
 
