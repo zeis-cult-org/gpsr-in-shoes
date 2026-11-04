@@ -1,7 +1,7 @@
 # Fase 3 — Migrazione dell'URL storico: piano operativo definitivo
 
 Da `https://lost-95.github.io/cult-milano-gpsr/` a `https://gpsr.in-shoes.it/`.
-**Stato: preparato e testato in locale. NON applicato. Richiede approvazione esplicita.**
+**Stato: ✅ APPLICATA il 04/11/2026** (commit `f3c2ae1` su `lost-95/cult-milano-gpsr`, online alle 15:52). Esito in §8. Rollback in §7, sempre disponibile.
 
 ## 1. Regole
 - I vecchi QR sono su scarpe di **tutti e tre i marchi**: la homepage storica porta alla **homepage** dello snodo, dove il cliente sceglie CULT, DOCKSTEPS o OXS. **Mai direttamente a CULT.**
@@ -78,7 +78,21 @@ git -C <copia-di-lavoro-storico> push origin main
 ```
 In alternativa: ripubblicare l'`index.html` del backup (commit `432f167`), anche dall'editor web di GitHub. Visibile a tutti entro circa 10 minuti (cache). I PDF non vengono mai toccati, quindi restano disponibili in ogni caso. Dopo il rollback: `verifica-storico.ps1 -Fase prima` → OK.
 
-## 8. Rischi residui
+## 8. Esito dell'applicazione (04/11/2026)
+
+| Verifica | Esito |
+|---|---|
+| Push autorizzato dall'account `lost-95` (codice dispositivo), `432f167..f3c2ae1` | ✅ |
+| Homepage online identica al file testato (MD5 `e4aaa8f3…`) | ✅ |
+| `verifica-storico.ps1 -Fase dopo`: redirect su `/`, `/index.html`, `/?src=qr`; 10 PDF 200 con SHA-256 invariati; destinazione 200 | ✅ |
+| Varianti: senza barra finale, `http://`, parametri → stessa pagina di redirect | ✅ |
+| Browser desktop: URL storico → `https://gpsr.in-shoes.it/` (nuovo H1); tasto Indietro senza loop | ✅ |
+| Smartphone (emulazione Android 375 px) → snodo, nessuno scorrimento orizzontale | ✅ |
+| Senza JavaScript (pagina online con lo script rimosso) → snodo tramite meta refresh | ✅ |
+| Simulazione scansione: QR decodificati dall'etichetta Word e dal modello Avery → URL storico → redirect → snodo 200 (MD5 pagina approvata) | ✅ |
+| **Scansione di un'etichetta fisica già stampata** (CULT, DOCKSTEPS, OXS) con iPhone e Android | ⏳ da eseguire |
+
+## 9. Rischi residui
 - **Dipendenza dallo snodo:** dopo la migrazione anche i vecchi QR dipendono da `gpsr.in-shoes.it` (dominio, DNS, GitHub). Mitigazione: [assets/qr-gpsr/MANUTENZIONE.md](../assets/qr-gpsr/MANUTENZIONE.md).
 - **Account personale lost-95:** il sito storico resta necessario per sempre, perché i vecchi QR puntano lì. Se l'account o il repository venissero chiusi, rinominati o resi privati, i vecchi QR smetterebbero di funzionare. Mantenere account e repository attivi, con 2FA e codici di recupero conservati. **Non trasferire** il repository: cambierebbe l'URL.
 - **Cache fino a 10 minuti** dopo la modifica: in quella finestra alcuni utenti vedono ancora la vecchia pagina, che resta valida.

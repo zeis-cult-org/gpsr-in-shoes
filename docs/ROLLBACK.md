@@ -17,7 +17,9 @@ Principio: i QR già stampati devono funzionare sempre. Nel dubbio si torna all'
 - Non dipende dallo snodo: avvisare il responsabile web del marchio.
 - Non cambiare la destinazione senza una nuova validazione aziendale. Se l'azienda approva un indirizzo sostitutivo temporaneo, aggiornare solo quel link, con commit dedicato, e ripristinarlo appena possibile.
 
-## 4. Dopo la Fase 3 (redirect del sito storico attivo)
+## 4. Fase 3 attiva dal 04/11/2026 (redirect del sito storico)
+Rollback immediato: nella copia di lavoro del repository storico `git revert --no-edit f3c2ae1` e `git push origin main` (account `lost-95`); visibile entro circa 10 minuti. Poi `scripts/verifica-storico.ps1 -Fase prima` → OK.
+
 - Se lo snodo o i link non funzionano: nel repository storico `lost-95/cult-milano-gpsr` ripristinare l'`index.html` originale con `git revert` del commit di redirect (o ricaricando il file dal backup). I PDF non vengono mai rimossi, quindi restano disponibili in ogni caso.
 - Backup disponibili: copia locale `gpsr-cult/gpsr_basic.zip` (30/07/2026, verificata identica al sito online il 4/11/2026) e il backup completo da eseguire prima della Fase 3 (vedi [MIGRAZIONE_URL_STORICO.md](MIGRAZIONE_URL_STORICO.md)).
 
