@@ -28,6 +28,8 @@ Data: ____________  Collaudatore: ____________  Commit pubblicato: ____________
 - [ ] Modalità scura del telefono: testo ancora leggibile.
 
 ## E. QR code
+File master, scheda tipografia e collaudo dettagliato: [assets/qr-gpsr/](../assets/qr-gpsr/README.md) ([CHECKLIST_COLLAUDO_FISICO.md](../assets/qr-gpsr/CHECKLIST_COLLAUDO_FISICO.md)).
+- [ ] Il fornitore usa `GPSR_IN_SHOES_STAMPA.pdf` senza rigenerarlo (SHA-256 in `assets/qr-gpsr/SHA256SUMS.txt`).
 - [ ] Il QR codifica esattamente `https://gpsr.in-shoes.it/` (con `https://`, senza parametri).
 - [ ] Lo stesso identico URL è usato sulle etichette di CULT, DOCKSTEPS e OXS (nessun URL diverso per marchio).
 - [ ] Prova di stampa al formato reale dell'etichetta, letta con almeno 2 telefoni diversi (fotocamera nativa), a distanza normale e con luce scarsa.

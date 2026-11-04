@@ -52,7 +52,8 @@ NUOVI QR (tutti e tre i marchi)                                        │
 ```
 gpsr-in-shoes/
 ├── .github/workflows/
-│   └── pages.yml         ← pubblicazione su GitHub Pages (inattivo finché non c'è il repo aziendale)
+│   └── pages.yml         ← pubblicazione su GitHub Pages (solo public/)
+├── assets/qr-gpsr/       ← QR ufficiale: master SVG/PDF/PNG, scheda tipografia, QA, script (NON pubblicato)
 ├── public/               ← SOLO questa cartella va online
 │   └── index.html        ← pagina approvata, definitiva, non modificare
 ├── docs/
