@@ -12,8 +12,9 @@
 | Repository | https://github.com/zeis-cult-org/gpsr-in-shoes, **pubblico**, separato dal repository storico. ✅ Creato e allineato il 4/11/2026. |
 | Hosting | GitHub Pages con sorgente **GitHub Actions** (`.github/workflows/pages.yml`). ✅ Attivo dal 4/11/2026. |
 | URL provvisorio | https://zeis-cult-org.github.io/gpsr-in-shoes/ ✅ Online e collaudato il 4/11/2026. |
-| Dominio | `https://gpsr.in-shoes.it/`, dominio di IN SHOES SRL. |
-| DNS | Nameserver GoDaddy (`ns81/ns82.domaincontrol.com`). Accesso amministrativo da verificare prima dei passi DNS. |
+| Dominio | `https://gpsr.in-shoes.it/`, dominio di IN SHOES SRL. ✅ Online con HTTPS (Let's Encrypt, rinnovo automatico) ed Enforce HTTPS dal 4/11/2026. |
+| DNS | Nameserver GoDaddy (`ns81/ns82.domaincontrol.com`). ✅ 4/11/2026: aggiunti solo TXT `_github-pages-challenge-zeis-cult-org.gpsr` e CNAME `gpsr → zeis-cult-org.github.io`. Stato precedente e rollback in [REGISTRO_OPERAZIONI.md](REGISTRO_OPERAZIONI.md). |
+| Verifica dominio | ✅ `gpsr.in-shoes.it` verificato sull'account `zeis-cult-org` il 4/11/2026. Il record TXT va lasciato nel DNS. |
 | Autore commit | `l.santarelli@cult-milano.it` (solo in questo repository). |
 
 ## 2. Procedura ufficiale GitHub (verificata sulla documentazione il 4/11/2026)

@@ -10,6 +10,8 @@ Snodo di link statico gestito da **IN SHOES SRL**. Chi inquadra il QR code su un
 
 **`https://gpsr.in-shoes.it/` è l'URL unico da stampare nei QR futuri di tutti e tre i marchi.**
 
+**Stato (4/11/2026):** online su `https://gpsr.in-shoes.it/` con HTTPS, pubblicato da `zeis-cult-org/gpsr-in-shoes` tramite GitHub Pages. Collaudo tecnico completato; restano le prove su smartphone reali e la prova di stampa dei QR ([docs/CHECKLIST_TEST.md](docs/CHECKLIST_TEST.md)). Storico interventi: [docs/REGISTRO_OPERAZIONI.md](docs/REGISTRO_OPERAZIONI.md).
+
 ## Decisioni confermate (4/11/2026)
 
 | Tema | Decisione |
