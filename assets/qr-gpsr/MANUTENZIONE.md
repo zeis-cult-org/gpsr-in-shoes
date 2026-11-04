@@ -13,7 +13,7 @@ Il QR stampato contiene per sempre `https://gpsr.in-shoes.it/`. Non si può aggi
 | Pagine dei marchi | cultofficial.com, docksteps.com, oxs-shoes.it | Pagina `/pages/gpsr` spostata o rimossa | Avvisare i referenti web: l'indirizzo `/pages/gpsr` va mantenuto. Se cambia, si aggiorna lo snodo (commit approvato); il QR resta valido. |
 
 ## Backup
-- Repository Git: copia su GitHub e copia locale in OneDrive (`Progetti/gpsr-in-shoes`), con storico completo.
+- Repository Git: copia su GitHub e copia locale nell'archivio aziendale, con storico completo.
 - File master del QR: in `assets/qr-gpsr/` con `SHA256SUMS.txt`. Lo script `genera_qr.py` li rigenera identici, con le versioni di `requirements.txt`.
 - Conservare in archivio aziendale anche il PDF inviato alla tipografia e la prova fisica approvata.
 
