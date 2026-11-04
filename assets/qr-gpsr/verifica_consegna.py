@@ -45,7 +45,7 @@ attesi = {
     "2_FILE_DI_SUPPORTO/QR_GPSR_ANTEPRIMA.png": "GPSR_IN_SHOES_PREVIEW.png",
 }
 presenti = sorted(p.relative_to(DEST).as_posix() for p in DEST.rglob("*") if p.is_file())
-check("Cartella con i soli 5 file previsti", presenti == sorted(list(attesi) + ["00_LEGGIMI.txt", "0_ISTRUZIONI_QR_GPSR.pdf"]), str(presenti))
+check("Cartella con i soli 4 file previsti", presenti == sorted(list(attesi) + ["0_ISTRUZIONI_QR_GPSR.pdf"]), str(presenti))
 
 for rel, master in attesi.items():
     check(f"{rel} identico al master {master}", sha(DEST / rel) == sha(QUI / master))
@@ -61,15 +61,15 @@ check("File di stampa: 25,0 x 25,0 mm, vettoriale",
 
 # Istruzioni
 ist = pymupdf.open(str(DEST / "0_ISTRUZIONI_QR_GPSR.pdf"))
-check("Istruzioni: 3 pagine A4", len(ist) == 3 and all(round(p.rect.width) == 595 and round(p.rect.height) == 842 for p in ist))
+check("Istruzioni: 2 pagine A4", len(ist) == 2 and all(round(p.rect.width) == 595 and round(p.rect.height) == 842 for p in ist))
 check("Istruzioni: nessuna immagine raster (QR vettoriale)", all(not p.get_images() for p in ist))
 testo = "\n".join(p.get_text() for p in ist)
 # L'indirizzo deve comparire esatto (copiabile); le legature tipografiche fi/fl si normalizzano.
 check("Istruzioni: indirizzo copiabile esatto, senza caratteri alterati", URL in testo)
 testo = unicodedata.normalize("NFKC", testo).replace("\xa0", " ")
-for frase in ("CULT, DOCKSTEPS e OXS", "lo stesso QR per tutti e tre i marchi", URL, "25 × 25 mm", "Non rigenerare il QR",
-              "Non ritagliare il bordo bianco", "Non modificarlo", "FASE 1", "FASE 2", "approvazione scritta",
-              "QR_GPSR_25x25mm_STAMPA.pdf", "IL FILE DA USARE PER LA STAMPA", "K100"):
+for frase in ("lo stesso QR per CULT, DOCKSTEPS e OXS", URL, "25 × 25 mm", "Non rigenerare il QR", "non ritagliarlo",
+              "Non modificarlo", "FASE 1", "FASE 2", "approvazione scritta", "QR_GPSR_25x25mm_STAMPA.pdf",
+              "Per la stampa", "non per stampare", "K100", "avvisa il responsabile"):
     check(f"Istruzioni contengono: {frase}", frase.replace("\n", " ") in testo.replace("\n", " "))
 tecnici = re.findall(r"(?i)\b(github|git|dns|hosting|server|script|python|sha-?256|repository|deploy|html|css)\b", testo)
 check("Istruzioni senza termini tecnici di programmazione o infrastruttura", not tecnici, str(sorted(set(tecnici))))
@@ -79,10 +79,6 @@ check("Pagina 1: QR inserito a 25 x 25 mm reali", bool(blocchi), f"{len(blocchi)
 if blocchi:
     t = leggi(render(ist, 300, clip=blocchi[0]["rect"] + (-10, -10, 10, 10)))
     check("Pagina 1: QR in dimensione reale leggibile", t == URL, repr(t))
-
-# LEGGIMI
-leg = (DEST / "00_LEGGIMI.txt").read_text(encoding="utf-8")
-check("00_LEGGIMI.txt indica file di stampa, URL e approvazione", "QR_GPSR_25x25mm_STAMPA.pdf" in leg and URL in leg and "approvazione" in leg)
 
 # ZIP
 with zipfile.ZipFile(ZIP) as z:
