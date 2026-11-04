@@ -58,6 +58,7 @@ gpsr-in-shoes/
 │   ├── PUBBLICAZIONE.md
 │   ├── CHECKLIST_TEST.md
 │   ├── ROLLBACK.md
+│   ├── REGISTRO_OPERAZIONI.md     ← interventi su produzione, account e DNS
 │   └── MIGRAZIONE_URL_STORICO.md   ← Fase 3: solo piano, non applicato
 └── scripts/
     └── verifica.ps1      ← controlli automatici (H1, link, risorse esterne, raggiungibilità)

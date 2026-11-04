@@ -9,9 +9,9 @@
 |---|---|
 | Account GitHub | **`zeis-cult-org`** (https://github.com/zeis-cult-org), account esistente di CULT Milano. È un account *utente*, non un'organizzazione GitHub nonostante il nome: valgono i percorsi delle impostazioni del profilo. Nessuna nuova organizzazione o account. |
 | Amministratore | Un solo amministratore e sviluppatore. Un secondo account di continuità verrà aggiunto in futuro. |
-| Repository | `zeis-cult-org/gpsr-in-shoes`, **pubblico**, separato dal repository storico. |
-| Hosting | GitHub Pages con sorgente **GitHub Actions** (`.github/workflows/pages.yml`). |
-| URL provvisorio | `https://zeis-cult-org.github.io/gpsr-in-shoes/` |
+| Repository | https://github.com/zeis-cult-org/gpsr-in-shoes, **pubblico**, separato dal repository storico. ✅ Creato e allineato il 4/11/2026. |
+| Hosting | GitHub Pages con sorgente **GitHub Actions** (`.github/workflows/pages.yml`). ✅ Attivo dal 4/11/2026. |
+| URL provvisorio | https://zeis-cult-org.github.io/gpsr-in-shoes/ ✅ Online e collaudato il 4/11/2026. |
 | Dominio | `https://gpsr.in-shoes.it/`, dominio di IN SHOES SRL. |
 | DNS | Nameserver GoDaddy (`ns81/ns82.domaincontrol.com`). Accesso amministrativo da verificare prima dei passi DNS. |
 | Autore commit | `l.santarelli@cult-milano.it` (solo in questo repository). |
@@ -37,8 +37,9 @@ Fonti: docs.github.com → Pages → *Verifying your custom domain*, *Managing a
 | Permessi minimi | ✅ `contents: read`, `pages: write`, `id-token: write`. Nessun altro permesso. |
 | Credenziali | ✅ `checkout` con `persist-credentials: false`. |
 | Quando parte | Push su `main` o avvio manuale. Un solo deploy alla volta (`concurrency`). |
-| Controlli prima del deploy | ✅ File presente, H1 esatto, tre link presenti. Se falliscono, non pubblica. |
-| Versioni azioni | `configure-pages@v5`, `upload-pages-artifact@v4`, `deploy-pages@v4` (come negli esempi ufficiali); `checkout@v5`. |
+| Controlli prima del deploy | ✅ File presente, MD5 della pagina approvata, H1 esatto, tre link presenti. Se falliscono, non pubblica. |
+| Versioni azioni | `checkout@v7`, `configure-pages@v6`, `upload-pages-artifact@v5`, `deploy-pages@v5`: ultime versioni al 4/11/2026, su Node 24. Le versioni precedenti funzionavano ma GitHub segnalava che usavano Node 20, ormai deprecato. |
+| Verifica sul sito pubblicato | ✅ Pagina servita identica (MD5); `README.md`, `docs/`, `scripts/`, `.github/` rispondono 404; HTTP reindirizza a HTTPS. |
 
 ## 4. Passi di pubblicazione
 
