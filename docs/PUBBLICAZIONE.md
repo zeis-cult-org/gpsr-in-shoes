@@ -98,6 +98,11 @@ Prima di ogni passo DNS: screenshot della zona DNS di `in-shoes.it` su GoDaddy (
 ## 5. Aggiornamenti futuri
 Modifica autorizzata → `scripts/verifica.ps1` → commit → push su `main` (con approvazione) → il workflow ripubblica in pochi minuti. Problemi: [ROLLBACK.md](ROLLBACK.md).
 
+Account Git su questo PC: Git Credential Manager conserva due account GitHub. Ogni repository indica il proprio nell'indirizzo di push:
+- `gpsr-in-shoes` → `https://zeis-cult-org@github.com/zeis-cult-org/gpsr-in-shoes.git`
+- sito storico `cult-milano-gpsr` (copia di lavoro nell'archivio Backups) → `https://lost-95@github.com/lost-95/cult-milano-gpsr.git`
+Su un altro PC, al primo push si autorizza l'account corretto con il codice dispositivo (`https://github.com/login/device`).
+
 ## 6. Anteprima locale
 
 ```powershell
