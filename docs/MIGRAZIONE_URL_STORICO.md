@@ -1,67 +1,85 @@
-# Fase 3 — Migrazione dell'URL storico (SOLO PIANO, NON APPLICATO)
+# Fase 3 — Migrazione dell'URL storico: piano operativo definitivo
 
 Da `https://lost-95.github.io/cult-milano-gpsr/` a `https://gpsr.in-shoes.it/`.
+**Stato: preparato e testato in locale. NON applicato. Richiede approvazione esplicita.**
 
-**Regole confermate (4/11/2026)**
-- I vecchi QR sono su scarpe di **tutti e tre i marchi**: la homepage storica deve portare alla **homepage** `https://gpsr.in-shoes.it/`, dove il cliente sceglie CULT, DOCKSTEPS o OXS. **Mai direttamente a CULT.**
-- Il redirect riguarda **solo la homepage** (`/cult-milano-gpsr/` e `/cult-milano-gpsr/index.html`).
-- I 10 PDF e i loro URL restano invariati e raggiungibili: non è noto se qualche QR punti direttamente a un PDF, quindi si preservano tutti gli indirizzi.
+## 1. Regole
+- I vecchi QR sono su scarpe di **tutti e tre i marchi**: la homepage storica porta alla **homepage** dello snodo, dove il cliente sceglie CULT, DOCKSTEPS o OXS. **Mai direttamente a CULT.**
+- Si modifica **un solo file**: `index.html` del repository `lost-95/cult-milano-gpsr`.
+- I 10 PDF e i loro URL restano **invariati e raggiungibili**. Non si rinomina, non si trasferisce e non si cancella nulla.
 
-**Prerequisiti obbligatori**: snodo pubblicato, [CHECKLIST_TEST.md](CHECKLIST_TEST.md) completata e approvazione esplicita. Fino ad allora il repository storico non si tocca, non si rinomina, non si trasferisce e i PDF non si cancellano.
+## 2. Analisi (04/11/2026)
 
-## 1. Cosa c'è oggi (rilevato il 4/11/2026)
-- Homepage `…/cult-milano-gpsr/` (titolo "Cult Milano | Sicurezza prodotti GPSR") con link a 10 PDF nella stessa cartella e a `ufficiocommerciale@cult-milano.it`.
-- Il backup locale `gpsr-cult/gpsr_basic.zip` (30/07/2026) ha `index.html` identico byte per byte a quello online (stesso MD5).
-- Tutte le URL testate rispondono 200.
+| Verifica | Risultato |
+|---|---|
+| URL contenuto nei vecchi QR | Decodificati i QR presenti nei file etichetta (Word dell'etichetta GPSR, sua copia nel pacchetto template, modello Avery 3489 in Excel): **tutti** `https://lost-95.github.io/cult-milano-gpsr/`, solo homepage. Nessun QR verso un PDF. I PDF si conservano comunque, perché potrebbero esistere altre tirature. |
+| Sito storico | Repository pubblico, ramo `main`, ultimo commit `432f167` (30/07/2026), pubblicato direttamente dal ramo (nessun workflow). 11 file: `index.html` + 10 PDF. |
+| Homepage online vs repository | Identiche (MD5 `2b4ec01e…`). |
+| PDF online vs repository | 10/10 identici (SHA-256). |
+| Varianti dell'URL | `/cult-milano-gpsr` → 301 → `/cult-milano-gpsr/`; `/`, `/index.html`, `/?parametri` → 200; HTTP → 301 → HTTPS. Le varianti servono tutte lo stesso `index.html`, quindi il redirect le copre tutte. |
+| Cache | `Cache-Control: max-age=600`: modifica e rollback diventano visibili a tutti entro circa 10 minuti. |
+| Contenuti equivalenti | Le pagine GPSR di CULT, DOCKSTEPS e OXS pubblicano gli stessi 10 PDF, **identici byte per byte** (30/30) a quelli storici. Dopo il redirect nessuna informazione va persa. |
 
-## 2. Verifiche prima di intervenire
-1. **Quali URL sono nei QR stampati?** Controllare le etichette di ciascun marchio (e i file di stampa, es. `Etichetta_GPSR_CULT_QR_v1.docx`, i template in `qrcode-etichetta-gpsr-v1/`) decodificando i QR: solo homepage, oppure anche percorsi diretti a PDF o con `index.html` / parametri?
-2. **Backup completo**: `git clone` del repository storico in una cartella di archivio + zip datato, con verifica che contenga tutti i PDF e l'`index.html` attuale.
+## 3. Soluzione: pagina di redirect
 
-## 3. Opzione proposta: redirect HTML su GitHub Pages
-GitHub Pages non permette redirect HTTP lato server. Si sostituisce solo `index.html` del sito storico con una pagina minima:
+File preparato: [`migrazione-storico/index.html`](../migrazione-storico/index.html). Sostituisce solo la homepage storica.
 
-```html
-<!doctype html>
-<html lang="it">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GPSR - Informazioni prodotti</title>
-  <link rel="canonical" href="https://gpsr.in-shoes.it/">
-  <meta http-equiv="refresh" content="0; url=https://gpsr.in-shoes.it/">
-</head>
-<body>
-  <p>Le informazioni GPSR sono disponibili su
-    <a href="https://gpsr.in-shoes.it/">gpsr.in-shoes.it</a>.</p>
-</body>
-</html>
-```
+Tre meccanismi, in ordine di intervento:
+1. `location.replace(...)` in JavaScript: reindirizza subito e **non lascia la pagina nella cronologia**, così il tasto Indietro non rimbalza.
+2. `<meta http-equiv="refresh" content="0; url=https://gpsr.in-shoes.it/">`: funziona anche con JavaScript disattivato.
+3. Link visibile "gpsr.in-shoes.it": fallback accessibile se entrambi fossero bloccati.
 
-- `meta refresh` con ritardo 0: il browser carica la pagina e passa subito allo snodo.
-- Link visibile come **fallback accessibile** se il refresh è disattivato.
-- Nessun JavaScript necessario.
-- **I PDF restano dove sono**: eventuali QR che puntano direttamente a un PDF continuano a funzionare.
+Più `<link rel="canonical">` verso lo snodo. Nessuna risorsa esterna, nessun cookie. Il testo è neutro e non indica alcun fabbricante.
 
-### Differenza rispetto a un vero redirect HTTP 301
-| | `meta refresh` (GitHub Pages) | HTTP 301 |
+**Perché non un 301:** `lost-95.github.io` è un dominio di GitHub e GitHub Pages non permette redirect HTTP lato server. Per chi inquadra il QR l'effetto è lo stesso: il passaggio è immediato.
+
+## 4. Test già eseguiti in locale (04/11/2026)
+Copia del sito storico (nuovo `index.html` + 10 PDF originali) servita in locale su `/cult-milano-gpsr/`:
+
+| Test | Esito |
+|---|---|
+| `scripts/verifica-storico.ps1 -Fase prima` sul sito reale | ✅ homepage originale, 10 PDF invariati |
+| `scripts/verifica-storico.ps1 -Fase dopo` sulla copia locale | ✅ redirect su `/`, `/index.html`, `/?src=qr`; 10 PDF invariati; destinazione 200 |
+| Browser desktop: homepage locale → `https://gpsr.in-shoes.it/` | ✅ |
+| Solo meta refresh (senza JavaScript) → `https://gpsr.in-shoes.it/` | ✅ |
+| Vista smartphone 375 px → snodo, nessuno scorrimento orizzontale | ✅ |
+| Tasto Indietro: torna alla pagina precedente, nessun loop | ✅ |
+| HTML ben formato | ✅ |
+
+## 5. Backup (già fatto)
+- Copia **mirror** completa del repository storico (tutti i rami e la storia) + copia di lavoro, nell'archivio Backups aziendale, cartella `cult-milano-gpsr_backup_2026-11-04`.
+- Backup precedente: zip del 30/07/2026, identico al sito online.
+- Impronte di riferimento dei 10 PDF e della homepage dentro `scripts/verifica-storico.ps1`.
+
+## 6. Procedura di applicazione (dopo approvazione)
+
+| # | Passo | Chi |
 |---|---|---|
-| Dove avviene | nel browser, dopo aver scaricato la pagina | sul server, prima di qualsiasi contenuto |
-| Codice HTTP del vecchio URL | 200 | 301 |
-| Riconosciuto come spostamento permanente | parzialmente (motori di ricerca lo trattano in modo simile) | sì |
-| Funziona senza HTML/browser (es. strumenti, alcuni lettori QR) | no: mostra la pagina col link | sì |
-| Disponibile su `lost-95.github.io` | sì | no |
+| 1 | Aggiorna il backup (`git fetch` sul mirror) e conferma che `main` sia ancora `432f167` | Claude |
+| 2 | `verifica-storico.ps1 -Fase prima` sul sito reale → OK | Claude |
+| 3 | Verifica che `https://gpsr.in-shoes.it/` sia online e collaudato (`verifica.ps1 -SitoUrl`) | Claude |
+| 4 | Nella copia di lavoro: sostituisce `index.html` con `migrazione-storico/index.html` (copia byte per byte), commit "Homepage: redirect verso https://gpsr.in-shoes.it/ (PDF invariati)" | Claude |
+| 5 | Push su `lost-95/cult-milano-gpsr`. Richiede l'accesso dell'account **lost-95**: Git aprirà il browser dove sei collegato come lost-95, e l'autorizzazione la confermi tu | Claude + tu |
+| 6 | Attesa della pubblicazione GitHub Pages (1–2 minuti) e della cache (fino a 10 minuti) | — |
+| 7 | `verifica-storico.ps1 -Fase dopo` sul sito reale → OK | Claude |
+| 8 | Browser desktop e smartphone: URL storico → snodo → CULT / DOCKSTEPS / OXS | Claude |
+| 9 | Simulazione del vecchio QR: decodifica dell'immagine QR dell'etichetta storica e apertura dell'URL letto | Claude |
+| 10 | **Prova fisica**: inquadrare con un telefono un'etichetta vecchia già stampata (CULT, DOCKSTEPS, OXS) | Tu |
+| 11 | Registro operazioni aggiornato, commit nel progetto | Claude |
 
-Per l'utente che inquadra il QR col telefono l'effetto è praticamente identico. Un 301 vero richiederebbe un hosting diverso per `lost-95.github.io`, che non è possibile: quel dominio è di GitHub.
+Finestra consigliata: orario di basso traffico. La modifica è reversibile in pochi minuti.
 
-## 4. Sequenza di applicazione (quando approvata)
-1. Backup completo (punto 2.2).
-2. Commit nel repository storico: solo `index.html` sostituito; PDF invariati.
-3. Test immediato da 2 smartphone con un vecchio QR reale per ciascun marchio + verifica che i 10 PDF rispondano 200.
-4. Monitoraggio nei giorni successivi.
+## 7. Rollback immediato
+Condizioni: lo snodo non risponde, il redirect non funziona su qualche dispositivo, o un PDF non è più raggiungibile.
 
-## 5. Rollback
-`git revert` del commit di redirect nel repository storico (oppure ricaricare l'`index.html` dal backup). Tempo di ripristino: pochi minuti. Dettagli in [ROLLBACK.md](ROLLBACK.md).
+```bash
+git -C <copia-di-lavoro-storico> revert --no-edit HEAD
+git -C <copia-di-lavoro-storico> push origin main
+```
+In alternativa: ripubblicare l'`index.html` del backup (commit `432f167`), anche dall'editor web di GitHub. Visibile a tutti entro circa 10 minuti (cache). I PDF non vengono mai toccati, quindi restano disponibili in ogni caso. Dopo il rollback: `verifica-storico.ps1 -Fase prima` → OK.
 
-## 6. Rischio a lungo termine
-Il sito storico dipende da un account personale. Se viene chiuso, rinominato, o il repository viene rinominato/reso privato, **i vecchi QR smettono di funzionare** e non esiste rimedio tecnico lato IN SHOES. Raccomandazioni: mantenere l'account e il repository attivi a tempo indeterminato, con credenziali e 2FA documentati e accessibili all'azienda; valutare l'aggiunta di un secondo amministratore. Il trasferimento del repository a un'organizzazione **non** è consigliato: cambierebbe l'URL `lost-95.github.io`.
+## 8. Rischi residui
+- **Dipendenza dallo snodo:** dopo la migrazione anche i vecchi QR dipendono da `gpsr.in-shoes.it` (dominio, DNS, GitHub). Mitigazione: [assets/qr-gpsr/MANUTENZIONE.md](../assets/qr-gpsr/MANUTENZIONE.md).
+- **Account personale lost-95:** il sito storico resta necessario per sempre, perché i vecchi QR puntano lì. Se l'account o il repository venissero chiusi, rinominati o resi privati, i vecchi QR smetterebbero di funzionare. Mantenere account e repository attivi, con 2FA e codici di recupero conservati. **Non trasferire** il repository: cambierebbe l'URL.
+- **Cache fino a 10 minuti** dopo la modifica: in quella finestra alcuni utenti vedono ancora la vecchia pagina, che resta valida.
+- **Percorsi sconosciuti** (es. errori di battitura) restano 404 come oggi. Facoltativo, da valutare a parte: un `404.html` che rimandi allo snodo.

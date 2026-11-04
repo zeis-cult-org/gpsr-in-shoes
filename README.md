@@ -62,9 +62,12 @@ gpsr-in-shoes/
 │   ├── CHECKLIST_TEST.md
 │   ├── ROLLBACK.md
 │   ├── REGISTRO_OPERAZIONI.md     ← interventi su produzione, account e DNS
-│   └── MIGRAZIONE_URL_STORICO.md   ← Fase 3: solo piano, non applicato
+│   └── MIGRAZIONE_URL_STORICO.md   ← Fase 3: piano operativo definitivo (non applicato)
+├── migrazione-storico/
+│   └── index.html        ← pagina di redirect per il sito storico (NON pubblicata da questo repo)
 └── scripts/
-    └── verifica.ps1      ← controlli automatici (H1, link, risorse esterne, raggiungibilità)
+    ├── verifica.ps1      ← controlli automatici (H1, link, risorse esterne, raggiungibilità)
+    └── verifica-storico.ps1  ← controlli prima/dopo sul sito storico (homepage e 10 PDF)
 ```
 
 ## Anteprima locale
