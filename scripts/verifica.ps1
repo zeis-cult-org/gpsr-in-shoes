@@ -21,6 +21,11 @@ $dest = @(
 if (-not (Test-Path $file)) {
   Ko "public\index.html mancante: inserire la pagina approvata."
 } else {
+  # Impronta della pagina approvata il 4/11/2026: se cambia, la pagina non e' piu' quella approvata.
+  $md5Approvato = "31FD181B644CFD32F92359A367611751"
+  $md5 = (Get-FileHash $file -Algorithm MD5).Hash
+  if ($md5 -eq $md5Approvato) { Ok "index.html identico alla versione approvata (MD5)" }
+  else { Ko "index.html diverso dalla versione approvata (MD5 $md5). Se e' una nuova versione approvata, aggiornare md5Approvato." }
   $html = [IO.File]::ReadAllText($file, [Text.Encoding]::UTF8)
   if ($html.Contains($h1)) { Ok "H1 esatto presente" } else { Ko "H1 diverso da quello approvato" }
   foreach ($u in $dest) {

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Portale di accesso alle informazioni di sicurezza dei prodotti dei marchi CULT, DOCKSTEPS e OXS.">
+  <title>Sicurezza prodotti | CULT · DOCKSTEPS · OXS</title>
+  <style>
+    :root { color-scheme: light; --paper:#f5f4f1; --ink:#141414; --muted:#5c5b58; --border:#dedbd5; --card:#fff; }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { margin:0; min-height:100vh; font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--paper); color:var(--ink); }
+    .layout { width:min(980px,calc(100% - 40px)); margin:0 auto; }
+    header { padding:32px 0 14px; border-bottom:1px solid var(--border); }
+    .eyebrow { margin:0; color:var(--muted); font-size:.78rem; font-weight:750; letter-spacing:.15em; text-transform:uppercase; }
+    main { padding:clamp(52px,10vw,114px) 0 90px; }
+    h1 { font-size:clamp(2.3rem,6.5vw,4.6rem); letter-spacing:-.055em; line-height:1.04; margin:0 0 20px; max-width:900px; }
+    .lead { color:var(--muted); font-size:clamp(1.05rem,2.2vw,1.25rem); max-width:670px; margin:0 0 44px; }
+    h2 { font-size:1rem; margin:0 0 16px; }
+    .brands { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .brand { display:flex; min-height:170px; padding:24px; flex-direction:column; justify-content:space-between; border:1px solid var(--border); border-radius:16px; color:var(--ink); background:var(--card); text-decoration:none; box-shadow:0 4px 24px rgba(0,0,0,.02); transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
+    .brand:hover { transform:translateY(-3px); border-color:#222; box-shadow:0 14px 35px rgba(0,0,0,.07); }
+    .brand:focus-visible { outline:3px solid #075ed6; outline-offset:4px; }
+    .brand strong { display:block; font-size:clamp(1.25rem,2.5vw,1.65rem); letter-spacing:-.035em; }
+    .brand small { color:var(--muted); font-size:.9rem; }
+    .brand .tail { display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .arrow { font-size:1.45rem; }
+    .notice { margin-top:32px; border-left:3px solid #aaa7a0; padding-left:17px; max-width:720px; color:var(--muted); font-size:.92rem; }
+    footer { padding:22px 0 34px; border-top:1px solid var(--border); color:var(--muted); font-size:.85rem; }
+    @media (max-width:660px) { .brands { grid-template-columns:1fr; } .brand { min-height:120px; } main { padding:55px 0 65px; } }
+    @media (prefers-reduced-motion: reduce) { .brand { transition:none; } .brand:hover { transform:none; } }
+  </style>
+</head>
+<body>
+  <header><div class="layout"><p class="eyebrow">Product Safety · Informazioni di sicurezza</p></div></header>
+  <main class="layout">
+    <h1>GPSR - Sicurezza dei prodotti.<br>Informazioni sempre accessibili.</h1>
+    <p class="lead">Seleziona il marchio della tua calzatura per consultare le informazioni d'uso, manutenzione e sicurezza pubblicate sul relativo sito ufficiale.</p>
+    <section aria-labelledby="marchi-title">
+      <h2 id="marchi-title">Scegli il tuo marchio</h2>
+      <div class="brands">
+        <a class="brand" href="https://www.cultofficial.com/pages/gpsr" aria-label="Apri le informazioni GPSR di CULT sul sito ufficiale">
+          <strong>CULT</strong>
+          <span class="tail"><small>Informazioni di sicurezza</small><span class="arrow" aria-hidden="true">↗</span></span>
+        </a>
+        <a class="brand" href="https://www.docksteps.com/pages/gpsr" aria-label="Apri le informazioni GPSR di DOCKSTEPS sul sito ufficiale">
+          <strong>DOCKSTEPS</strong>
+          <span class="tail"><small>Informazioni di sicurezza</small><span class="arrow" aria-hidden="true">↗</span></span>
+        </a>
+        <a class="brand" href="https://www.oxs-shoes.it/pages/gpsr" aria-label="Apri le informazioni GPSR di OXS sul sito ufficiale">
+          <strong>OXS</strong>
+          <span class="tail"><small>Informazioni di sicurezza</small><span class="arrow" aria-hidden="true">↗</span></span>
+        </a>
+      </div>
+    </section>
+    <p class="notice">Questo portale consente di raggiungere le pagine informative dei marchi. I dati del fabbricante e le informazioni specifiche dei prodotti sono riportati nelle rispettive pagine di destinazione e nella documentazione che accompagna i prodotti.</p>
+  </main>
+  <footer><div class="layout">Product Safety Portal · CULT · DOCKSTEPS · OXS</div></footer>
+</body>
+</html>

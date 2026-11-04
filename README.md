@@ -8,6 +8,20 @@ Snodo di link statico gestito da **IN SHOES SRL**. Chi inquadra il QR code su un
 | DOCKSTEPS | https://www.docksteps.com/pages/gpsr                  |
 | OXS       | https://www.oxs-shoes.it/pages/gpsr                   |
 
+**`https://gpsr.in-shoes.it/` è l'URL unico da stampare nei QR futuri di tutti e tre i marchi.**
+
+## Decisioni confermate (4/11/2026)
+
+| Tema | Decisione |
+|---|---|
+| Indirizzo ufficiale | `gpsr.in-shoes.it`. Dominio `in-shoes.it` acquistato il 3/11/2026 per IN SHOES SRL. |
+| Sito principale | `in-shoes.it` / `www.in-shoes.it` **fuori dal progetto**: non si toccano. Si lavora solo sul sottodominio `gpsr`. |
+| Hosting | GitHub Pages su una **nuova organizzazione GitHub aziendale**, separata da account personali. Non ancora creata. |
+| DNS | Nessun record modificato. L'accesso alla gestione DNS si affronta in fase di pubblicazione. |
+| Pagina | `public/index.html` è la versione definitiva approvata, inserita senza modifiche (H1 già aggiornato). |
+| Vecchi QR | Portano a scarpe di tutti e tre i marchi: in futuro andranno alla **homepage dello snodo**, mai direttamente a CULT. |
+| Repository storico | Non modificato. Il futuro redirect riguarderà solo la homepage; i 10 PDF e i loro URL restano. |
+
 ## Cosa è (e cosa non è) questo portale
 
 - È **solo uno snodo di link**. Non dichiara IN SHOES SRL fabbricante delle calzature e non le attribuisce la responsabilità GPSR dei tre marchi. Identità e contatti dei fabbricanti stanno nelle pagine ufficiali dei marchi.
@@ -35,8 +49,10 @@ NUOVI QR (tutti e tre i marchi)                                        │
 
 ```
 gpsr-in-shoes/
+├── .github/workflows/
+│   └── pages.yml         ← pubblicazione su GitHub Pages (inattivo finché non c'è il repo aziendale)
 ├── public/               ← SOLO questa cartella va online
-│   └── index.html        ← pagina approvata (unica modifica ammessa: l'H1)
+│   └── index.html        ← pagina approvata, definitiva, non modificare
 ├── docs/
 │   ├── ARCHITETTURA.md
 │   ├── PUBBLICAZIONE.md
@@ -67,4 +83,6 @@ Controlla: presenza di `public/index.html`, H1 esatto, presenza dei tre URL, ass
 
 - Commit Git locali e descrittivi. **Nessun push, deploy, modifica DNS o intervento in produzione senza approvazione esplicita.**
 - Non ridisegnare la pagina, non aggiungere funzioni, non cambiare le tre destinazioni.
+- Autore dei commit: email aziendale, impostata solo in questo repository (non a livello globale).
+- File di testo con fine riga LF (`.gitattributes`), così l'HTML approvato resta identico byte per byte.
 - Il repository storico `lost-95/cult-milano-gpsr` non si tocca finché la Fase 2 non è approvata.

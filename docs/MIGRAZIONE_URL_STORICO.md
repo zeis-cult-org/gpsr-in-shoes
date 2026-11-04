@@ -2,6 +2,11 @@
 
 Da `https://lost-95.github.io/cult-milano-gpsr/` a `https://gpsr.in-shoes.it/`.
 
+**Regole confermate (4/11/2026)**
+- I vecchi QR sono su scarpe di **tutti e tre i marchi**: la homepage storica deve portare alla **homepage** `https://gpsr.in-shoes.it/`, dove il cliente sceglie CULT, DOCKSTEPS o OXS. **Mai direttamente a CULT.**
+- Il redirect riguarda **solo la homepage** (`/cult-milano-gpsr/` e `/cult-milano-gpsr/index.html`).
+- I 10 PDF e i loro URL restano invariati e raggiungibili: non è noto se qualche QR punti direttamente a un PDF, quindi si preservano tutti gli indirizzi.
+
 **Prerequisiti obbligatori**: snodo pubblicato, [CHECKLIST_TEST.md](CHECKLIST_TEST.md) completata e approvazione esplicita. Fino ad allora il repository storico non si tocca, non si rinomina, non si trasferisce e i PDF non si cancellano.
 
 ## 1. Cosa c'è oggi (rilevato il 4/11/2026)

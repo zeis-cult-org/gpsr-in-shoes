@@ -4,7 +4,7 @@ Data: ____________  Collaudatore: ____________  Commit pubblicato: ____________
 
 ## A. File (in locale)
 - [ ] `scripts/verifica.ps1` termina con esito OK.
-- [ ] `public/index.html` è la versione approvata; l'unica differenza è l'H1 (`git diff` / `git log`).
+- [ ] `public/index.html` è identico alla versione approvata (MD5 `31fd181b644cfd32f92359a367611751`, verificabile con `certutil -hashfile public\index.html MD5`). Se la pagina viene riapprovata in futuro, aggiornare qui l'MD5.
 - [ ] H1 esatto: `GPSR - Sicurezza dei prodotti.<br>Informazioni sempre accessibili.`
 - [ ] Nessun riferimento a IN SHOES SRL come fabbricante o responsabile GPSR dei marchi.
 - [ ] Nessuno script, font, CSS, analytics, pixel o cookie esterno.
@@ -29,6 +29,7 @@ Data: ____________  Collaudatore: ____________  Commit pubblicato: ____________
 
 ## E. QR code
 - [ ] Il QR codifica esattamente `https://gpsr.in-shoes.it/` (con `https://`, senza parametri).
+- [ ] Lo stesso identico URL è usato sulle etichette di CULT, DOCKSTEPS e OXS (nessun URL diverso per marchio).
 - [ ] Prova di stampa al formato reale dell'etichetta, letta con almeno 2 telefoni diversi (fotocamera nativa), a distanza normale e con luce scarsa.
 - [ ] Anteprima URL mostrata dal telefono = `gpsr.in-shoes.it`.
 

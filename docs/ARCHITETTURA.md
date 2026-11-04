@@ -12,8 +12,12 @@ Un indirizzo stabile, di proprietà aziendale (`https://gpsr.in-shoes.it/`), da 
 | Snodo | `https://gpsr.in-shoes.it/` | IN SHOES SRL | Pagina statica con 3 pulsanti. Destinazione dei nuovi QR. |
 | Pagine marchi | `cultofficial.com`, `docksteps.com`, `oxs-shoes.it` → `/pages/gpsr` | i rispettivi marchi | Contenuto GPSR ufficiale (fabbricante, contatti, avvertenze). |
 
+## Ambito
+Solo il sottodominio `gpsr.in-shoes.it`. Il sito principale `in-shoes.it` / `www.in-shoes.it` e la posta del dominio sono fuori dal progetto.
+
 ## Scelte tecniche
-- **Statico puro**: un solo file `public/index.html` con CSS incorporato. Nessun framework, build, backend, database, cookie, tracciamento, CDN o font esterni.
+- **Hosting**: GitHub Pages su una nuova organizzazione GitHub aziendale, separata dagli account personali (approvato il 4/11/2026, non ancora creata). Pubblicazione tramite `.github/workflows/pages.yml`.
+- **Statico puro**: un solo file `public/index.html` con CSS incorporato, versione definitiva approvata. Nessun framework, build, backend, database, cookie, tracciamento, CDN o font esterni.
 - **Separazione pubblicato / interno**: online va solo `public/`. Documentazione e script restano fuori, così non vengono pubblicati per errore.
 - **HTTPS obbligatorio** tramite certificato gestito dall'hosting (vedi [PUBBLICAZIONE.md](PUBBLICAZIONE.md)).
 - **Link esterni** aperti con normali `<a href>`: se una pagina di marchio non risponde, il problema è circoscritto a quel marchio; lo snodo resta su. Mitigazione: controllo periodico con `scripts/verifica.ps1` e procedura in [ROLLBACK.md](ROLLBACK.md).
