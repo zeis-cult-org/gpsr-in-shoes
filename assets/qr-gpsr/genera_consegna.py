@@ -1,7 +1,7 @@
 """Prepara la cartella CONSEGNA_UFFICIO_ETICHETTE e il relativo ZIP.
 
 - copia i file del QR master (identici byte per byte) con nomi chiari
-- genera 0_ISTRUZIONI_QR_GPSR.pdf (2 pagine, italiano semplice, QR vettoriale a 25 x 25 mm reali)
+- genera 0_ISTRUZIONI_QR_GPSR.pdf (una pagina, italiano semplice, QR vettoriale a 25 x 25 mm reali)
 - crea CONSEGNA_UFFICIO_ETICHETTE.zip con date fisse (riproducibile)
 
 Uso:  python genera_consegna.py
@@ -74,40 +74,8 @@ non ridurlo e non ritagliarlo</td></tr>
 <tr><td><b>Colore</b></td><td>nero pieno al 100% (K100) su fondo bianco opaco; mai colori invertiti</td></tr>
 <tr><td><b>Spazio</b></td><td>nessun altro elemento grafico dentro i 25 × 25 mm; niente pellicole lucide sopra il QR</td></tr>
 </table>
-<div class="stop">
-<p><b>Non rigenerare il QR</b> con siti, app o altri programmi. <b>Non modificarlo</b>: niente loghi, scritte, colori o effetti.</p>
-<p>Se qualcuno chiede di cambiarlo, o il QR stampato esce irregolare o sfocato, non toccare il file:
-<b>avvisa il responsabile del progetto GPSR</b>.</p>
-</div>
 """
 
-PAGINA2 = f"""
-{INTESTAZIONE}
-<h2>Prova di stampa, poi produzione</h2>
-<div class="fase">
-<p><b>FASE 1 — Prova di stampa:</b> stampa alcune etichette di prova con lo stesso materiale, la stessa stampante
-e lo stesso formato della produzione, compila la checklist e consegna le prove al responsabile.</p>
-</div>
-<div class="fase">
-<p><b>FASE 2 — Produzione definitiva:</b> solo dopo l'<b>approvazione scritta</b> del responsabile del progetto GPSR.
-<span class="no">Senza approvazione, non avviare la produzione.</span></p>
-</div>
-<h2>Checklist della prova</h2>
-<table>
-<tr><td style="width:24pt">☐</td><td>Misura 25 × 25 mm con il righello, è quadrato e il bordo bianco è libero. Misurato: ______ mm</td></tr>
-<tr><td>☐</td><td>Nero netto, senza sbavature, macchie o quadratini mancanti</td></tr>
-<tr><td>☐</td><td>Con un <b>iPhone</b> (fotocamera normale) si apre <b>gpsr.in-shoes.it</b></td></tr>
-<tr><td>☐</td><td>Con un telefono <b>Android</b> (fotocamera normale) si apre <b>gpsr.in-shoes.it</b></td></tr>
-<tr><td>☐</td><td>I pulsanti CULT, DOCKSTEPS e OXS aprono la pagina giusta</td></tr>
-<tr><td>☐</td><td>La lettura riesce da 25–30 cm, con poca luce e con l'etichetta applicata sulla scatola o calzatura</td></tr>
-</table>
-<div class="fase">
-<p>Prova eseguita da: ________________________________ &#160;&#160; Data: ______________</p>
-<p>Esito: ☐ positivo &#160;&#160; ☐ negativo &#160;&#160; Note: ____________________________________________</p>
-<p><b>Approvazione della produzione</b> (responsabile del progetto GPSR)</p>
-<p>Nome: ______________________ &#160; Firma: ______________________ &#160; Data: ____________</p>
-</div>
-"""
 
 
 def blocco(p, x0, y0, x1, html, max_h=700):
@@ -130,8 +98,6 @@ def crea_istruzioni(path):
     p1.show_pdf_page(r, qr, 0)
     y_qr = blocco(p1, x - 30, r.y1 + 3, r.x1 + 30, '<p class="small" style="text-align:center">25 × 25 mm reali</p>', 30)
     blocco(p1, 50, max(y_testo, y_qr) + 4, 545, PAGINA1_REGOLE)
-    p2 = doc.new_page(width=595, height=842)
-    blocco(p2, 50, 50, 545, PAGINA2)
     for i, p in enumerate(doc, start=1):
         p.insert_htmlbox(pymupdf.Rect(50, 805, 545, 825),
                          f'<p class="small" style="text-align:right">QR GPSR · Istruzioni ufficio etichette · pagina {i} di {len(doc)}</p>', css=CSS)

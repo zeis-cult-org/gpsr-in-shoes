@@ -61,15 +61,14 @@ check("File di stampa: 25,0 x 25,0 mm, vettoriale",
 
 # Istruzioni
 ist = pymupdf.open(str(DEST / "0_ISTRUZIONI_QR_GPSR.pdf"))
-check("Istruzioni: 2 pagine A4", len(ist) == 2 and all(round(p.rect.width) == 595 and round(p.rect.height) == 842 for p in ist))
+check("Istruzioni: una pagina A4", len(ist) == 1 and all(round(p.rect.width) == 595 and round(p.rect.height) == 842 for p in ist))
 check("Istruzioni: nessuna immagine raster (QR vettoriale)", all(not p.get_images() for p in ist))
 testo = "\n".join(p.get_text() for p in ist)
 # L'indirizzo deve comparire esatto (copiabile); le legature tipografiche fi/fl si normalizzano.
 check("Istruzioni: indirizzo copiabile esatto, senza caratteri alterati", URL in testo)
 testo = unicodedata.normalize("NFKC", testo).replace("\xa0", " ")
-for frase in ("lo stesso QR per CULT, DOCKSTEPS e OXS", URL, "25 × 25 mm", "Non rigenerare il QR", "non ritagliarlo",
-              "Non modificarlo", "FASE 1", "FASE 2", "approvazione scritta", "QR_GPSR_25x25mm_STAMPA.pdf",
-              "Per la stampa", "non per stampare", "K100", "avvisa il responsabile"):
+for frase in ("lo stesso QR per CULT, DOCKSTEPS e OXS", URL, "25 × 25 mm", "non ridurlo e non ritagliarlo",
+              "QR_GPSR_25x25mm_STAMPA.pdf", "Per la stampa", "non per stampare", "K100", "definitivo e non scade"):
     check(f"Istruzioni contengono: {frase}", frase.replace("\n", " ") in testo.replace("\n", " "))
 tecnici = re.findall(r"(?i)\b(github|git|dns|hosting|server|script|python|sha-?256|repository|deploy|html|css)\b", testo)
 check("Istruzioni senza termini tecnici di programmazione o infrastruttura", not tecnici, str(sorted(set(tecnici))))
