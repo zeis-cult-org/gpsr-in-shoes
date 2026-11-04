@@ -1,7 +1,7 @@
 # Fase 3 — Migrazione dell'URL storico: piano operativo definitivo
 
 Da `https://lost-95.github.io/cult-milano-gpsr/` a `https://gpsr.in-shoes.it/`.
-**Stato: ✅ APPLICATA il 04/11/2026** (commit `f3c2ae1` su `lost-95/cult-milano-gpsr`, online alle 15:52). Esito in §8. Rollback in §7, sempre disponibile.
+**Stato: ✅ APPLICATA E COLLAUDATA il 04/11/2026** (commit `f3c2ae1` su `lost-95/cult-milano-gpsr`, online alle 15:52). Esito in §8. Rollback in §7, sempre disponibile.
 
 ## 1. Regole
 - I vecchi QR sono su scarpe di **tutti e tre i marchi**: la homepage storica porta alla **homepage** dello snodo, dove il cliente sceglie CULT, DOCKSTEPS o OXS. **Mai direttamente a CULT.**
@@ -90,7 +90,7 @@ In alternativa: ripubblicare l'`index.html` del backup (commit `432f167`), anche
 | Smartphone (emulazione Android 375 px) → snodo, nessuno scorrimento orizzontale | ✅ |
 | Senza JavaScript (pagina online con lo script rimosso) → snodo tramite meta refresh | ✅ |
 | Simulazione scansione: QR decodificati dall'etichetta Word e dal modello Avery → URL storico → redirect → snodo 200 (MD5 pagina approvata) | ✅ |
-| **Scansione di un'etichetta fisica già stampata** (CULT, DOCKSTEPS, OXS) con iPhone e Android | ⏳ da eseguire |
+| **Scansione di etichette fisiche già stampate**, eseguita dall'utente | ✅ reindirizzamento confermato |
 
 ## 9. Rischi residui
 - **Dipendenza dallo snodo:** dopo la migrazione anche i vecchi QR dipendono da `gpsr.in-shoes.it` (dominio, DNS, GitHub). Mitigazione: [assets/qr-gpsr/MANUTENZIONE.md](../assets/qr-gpsr/MANUTENZIONE.md).
