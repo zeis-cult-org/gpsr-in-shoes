@@ -16,7 +16,7 @@ Un indirizzo stabile, di proprietà aziendale (`https://gpsr.in-shoes.it/`), da 
 Solo il sottodominio `gpsr.in-shoes.it`. Il sito principale `in-shoes.it` / `www.in-shoes.it` e la posta del dominio sono fuori dal progetto.
 
 ## Scelte tecniche
-- **Hosting**: GitHub Pages sull'account GitHub esistente usato per CULT Milano, repository `gpsr-in-shoes` separato dal repository storico (decisione del 4/11/2026: nessuna nuova organizzazione o account). Pubblicazione tramite `.github/workflows/pages.yml`.
+- **Hosting**: GitHub Pages sull'account GitHub esistente di CULT Milano `zeis-cult-org`, repository `gpsr-in-shoes` separato dal repository storico (decisione del 4/11/2026: nessuna nuova organizzazione o account). Pubblicazione tramite `.github/workflows/pages.yml`.
 - **Statico puro**: un solo file `public/index.html` con CSS incorporato, versione definitiva approvata. Nessun framework, build, backend, database, cookie, tracciamento, CDN o font esterni.
 - **Separazione pubblicato / interno**: online va solo `public/`. Documentazione e script restano fuori, così non vengono pubblicati per errore.
 - **HTTPS obbligatorio** tramite certificato gestito dall'hosting (vedi [PUBBLICAZIONE.md](PUBBLICAZIONE.md)).

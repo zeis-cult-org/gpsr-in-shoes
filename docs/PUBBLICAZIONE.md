@@ -7,11 +7,11 @@
 
 | Voce | Decisione / stato |
 |---|---|
-| Account GitHub | **Account esistente usato per CULT Milano** (nome utente `<ACCOUNT>` da confermare). Nessuna nuova organizzazione o account. |
+| Account GitHub | **`zeis-cult-org`** (https://github.com/zeis-cult-org), account esistente di CULT Milano. È un account *utente*, non un'organizzazione GitHub nonostante il nome: valgono i percorsi delle impostazioni del profilo. Nessuna nuova organizzazione o account. |
 | Amministratore | Un solo amministratore e sviluppatore. Un secondo account di continuità verrà aggiunto in futuro. |
-| Repository | `<ACCOUNT>/gpsr-in-shoes`, **pubblico**, separato dal repository storico. |
+| Repository | `zeis-cult-org/gpsr-in-shoes`, **pubblico**, separato dal repository storico. |
 | Hosting | GitHub Pages con sorgente **GitHub Actions** (`.github/workflows/pages.yml`). |
-| URL provvisorio | `https://<ACCOUNT>.github.io/gpsr-in-shoes/` |
+| URL provvisorio | `https://zeis-cult-org.github.io/gpsr-in-shoes/` |
 | Dominio | `https://gpsr.in-shoes.it/`, dominio di IN SHOES SRL. |
 | DNS | Nameserver GoDaddy (`ns81/ns82.domaincontrol.com`). Accesso amministrativo da verificare prima dei passi DNS. |
 | Autore commit | `l.santarelli@cult-milano.it` (solo in questo repository). |
@@ -20,9 +20,9 @@
 
 Fonti: docs.github.com → Pages → *Verifying your custom domain*, *Managing a custom domain*, *Using custom workflows*, *Securing your site with HTTPS*.
 
-- **CNAME del sottodominio**: deve puntare a `<ACCOUNT>.github.io`, **senza** nome del repository e senza il dominio `*.pages.github.io` mostrato nelle impostazioni.
+- **CNAME del sottodominio**: deve puntare a `zeis-cult-org.github.io`, **senza** nome del repository e senza il dominio `*.pages.github.io` mostrato nelle impostazioni.
 - **Ordine**: GitHub raccomanda di *verificare* il dominio, poi di *aggiungerlo* nelle impostazioni Pages del repository, e **solo dopo** creare il CNAME. Creare il CNAME prima espone al rischio che un altro account usi il sottodominio.
-- **Verifica dominio (account personale)**: foto profilo → *Settings* → *Pages* (impostazioni del profilo, non del repository) → *Add a domain*. GitHub mostra il record TXT da creare, nella forma `_github-pages-challenge-<ACCOUNT>.<dominio>`. Il valore esatto si copia da GitHub. Il TXT va lasciato nel DNS anche dopo la verifica.
+- **Verifica dominio (account personale)**: foto profilo → *Settings* → *Pages* (impostazioni del profilo, non del repository) → *Add a domain*. GitHub mostra il record TXT da creare, nella forma `_github-pages-challenge-zeis-cult-org.<dominio>`. Il valore esatto si copia da GitHub. Il TXT va lasciato nel DNS anche dopo la verifica.
   - Verificare un dominio protegge anche i suoi sottodomini immediati. La documentazione non dice esplicitamente se si può verificare direttamente il sottodominio `gpsr.in-shoes.it`. Si prova prima con `gpsr.in-shoes.it`; se GitHub non lo accetta si verifica `in-shoes.it`. Anche in quel caso si aggiunge solo un nuovo record TXT con nome `_github-pages-challenge-…`, che non tocca il sito principale né la posta.
 - **Workflow personalizzato**: il file `CNAME` non serve ed è ignorato. Il dominio si imposta in *Settings → Pages → Custom domain*.
 - **Permessi minimi** per `deploy-pages`: `pages: write` e `id-token: write`; più `contents: read` per leggere il codice. Ambiente predefinito: `github-pages`.
@@ -45,10 +45,10 @@ Fonti: docs.github.com → Pages → *Verifying your custom domain*, *Managing a
 Prima di ogni passo DNS: screenshot della zona DNS di `in-shoes.it` su GoDaddy (serve per il rollback).
 
 ### A. Repository e push
-1. **(Tu, nel browser)** Accedi con l'account `<ACCOUNT>` → *New repository* → nome `gpsr-in-shoes`, **Public**, **senza** README, .gitignore o licenza → *Create repository*.
+1. **(Tu, nel browser)** Accedi con l'account `zeis-cult-org` → *New repository* → nome `gpsr-in-shoes`, **Public**, **senza** README, .gitignore o licenza → *Create repository*.
 2. **(Io, con la tua approvazione)** Collego il repository e faccio il push:
    ```bash
-   git remote add origin https://github.com/<ACCOUNT>/gpsr-in-shoes.git
+   git remote add origin https://github.com/zeis-cult-org/gpsr-in-shoes.git
    ```
    ```bash
    git push -u origin main
@@ -58,14 +58,14 @@ Prima di ogni passo DNS: screenshot della zona DNS di `in-shoes.it` su GoDaddy (
 ### B. GitHub Pages e URL provvisorio
 3. **(Tu, con me)** Repository → *Settings → Pages → Build and deployment → Source* = **GitHub Actions**.
 4. Il workflow parte (scheda *Actions*), oppure si avvia a mano con *Run workflow*.
-5. **(Io)** Verifico `https://<ACCOUNT>.github.io/gpsr-in-shoes/` con `scripts/verifica.ps1 -SitoUrl …` e in anteprima desktop e smartphone.
+5. **(Io)** Verifico `https://zeis-cult-org.github.io/gpsr-in-shoes/` con `scripts/verifica.ps1 -SitoUrl …` e in anteprima desktop e smartphone.
 
 ### C. Verifica del dominio (TXT)
 6. **(Tu)** *Settings del profilo → Pages → Add a domain* → `gpsr.in-shoes.it`. Copia nome e valore del TXT esattamente come li mostra GitHub.
 7. **(Tu su GoDaddy, con la mia approvazione)** Aggiungi **solo** quel record TXT. Il campo "Nome" va scritto senza `.in-shoes.it` finale.
 8. Controllo:
    ```powershell
-   Resolve-DnsName -Type TXT _github-pages-challenge-<ACCOUNT>.gpsr.in-shoes.it
+   Resolve-DnsName -Type TXT _github-pages-challenge-zeis-cult-org.gpsr.in-shoes.it
    ```
    Poi su GitHub: menu ⋯ accanto al dominio → *Continue verifying* → *Verify*.
 
@@ -75,7 +75,7 @@ Prima di ogni passo DNS: screenshot della zona DNS di `in-shoes.it` su GoDaddy (
 
     | Tipo  | Nome  | Valore | TTL |
     |-------|-------|--------|-----|
-    | CNAME | `gpsr` | `<ACCOUNT>.github.io` | 1 ora |
+    | CNAME | `gpsr` | `zeis-cult-org.github.io` | 1 ora |
 
 11. Controllo:
     ```powershell

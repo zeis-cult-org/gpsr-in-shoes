@@ -24,7 +24,7 @@ Principio: i QR già stampati devono funzionare sempre. Nel dubbio si torna all'
 ## Contatti (da compilare)
 | Ruolo | Nome | Contatto |
 |---|---|---|
-| Responsabile snodo e account GitHub `<ACCOUNT>` | | |
+| Responsabile snodo e account GitHub `zeis-cult-org` | | |
 | Accesso DNS GoDaddy | | |
 | Titolare account `lost-95` (sito storico) | | |
 | Web CULT / DOCKSTEPS / OXS | | |
