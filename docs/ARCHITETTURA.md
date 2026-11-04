@@ -8,7 +8,7 @@ Un indirizzo stabile, di proprietà aziendale (`https://gpsr.in-shoes.it/`), da 
 | Componente | Indirizzo | Chi lo controlla | Ruolo |
 |---|---|---|---|
 | Vecchi QR | `https://lost-95.github.io/cult-milano-gpsr/` | account GitHub personale `lost-95` | Già stampati su scarpe CULT, DOCKSTEPS, OXS. Non modificabili. |
-| Sito storico | stesso indirizzo + 10 PDF (`ballerina.pdf`, `mocassino.pdf`, `mule.pdf`, `sandalo.pdf`, `scarpa_con_tacco.pdf`, `slides.pdf`, `sneaker.pdf`, `stivale.pdf`, `stivaletto.pdf`, `stringata.pdf`) | `lost-95` | Resta online invariato fino alla Fase 2. |
+| Sito storico | stesso indirizzo + 10 PDF (`ballerina.pdf`, `mocassino.pdf`, `mule.pdf`, `sandalo.pdf`, `scarpa_con_tacco.pdf`, `slides.pdf`, `sneaker.pdf`, `stivale.pdf`, `stivaletto.pdf`, `stringata.pdf`) | `lost-95` | Resta online invariato fino alla Fase 3. |
 | Snodo | `https://gpsr.in-shoes.it/` | IN SHOES SRL | Pagina statica con 3 pulsanti. Destinazione dei nuovi QR. |
 | Pagine marchi | `cultofficial.com`, `docksteps.com`, `oxs-shoes.it` → `/pages/gpsr` | i rispettivi marchi | Contenuto GPSR ufficiale (fabbricante, contatti, avvertenze). |
 
@@ -16,7 +16,7 @@ Un indirizzo stabile, di proprietà aziendale (`https://gpsr.in-shoes.it/`), da 
 Solo il sottodominio `gpsr.in-shoes.it`. Il sito principale `in-shoes.it` / `www.in-shoes.it` e la posta del dominio sono fuori dal progetto.
 
 ## Scelte tecniche
-- **Hosting**: GitHub Pages su una nuova organizzazione GitHub aziendale, separata dagli account personali (approvato il 4/11/2026, non ancora creata). Pubblicazione tramite `.github/workflows/pages.yml`.
+- **Hosting**: GitHub Pages sull'account GitHub esistente usato per CULT Milano, repository `gpsr-in-shoes` separato dal repository storico (decisione del 4/11/2026: nessuna nuova organizzazione o account). Pubblicazione tramite `.github/workflows/pages.yml`.
 - **Statico puro**: un solo file `public/index.html` con CSS incorporato, versione definitiva approvata. Nessun framework, build, backend, database, cookie, tracciamento, CDN o font esterni.
 - **Separazione pubblicato / interno**: online va solo `public/`. Documentazione e script restano fuori, così non vengono pubblicati per errore.
 - **HTTPS obbligatorio** tramite certificato gestito dall'hosting (vedi [PUBBLICAZIONE.md](PUBBLICAZIONE.md)).

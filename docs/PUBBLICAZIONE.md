@@ -1,75 +1,100 @@
 # Pubblicazione di `gpsr.in-shoes.it` e HTTPS
 
-> Nulla di quanto segue è stato eseguito. Ogni passo che crea account, pubblica o tocca il DNS richiede approvazione esplicita.
-> Il progetto riguarda **solo** il sottodominio `gpsr.in-shoes.it`. Il sito principale `in-shoes.it` / `www.in-shoes.it` e la posta non si toccano.
+> Ogni passo che pubblica (push, attivazione Pages) o tocca il DNS richiede approvazione esplicita.
+> Il progetto riguarda **solo** il sottodominio `gpsr.in-shoes.it`. Il sito principale `in-shoes.it` / `www.in-shoes.it`, la posta e gli altri record DNS non si toccano. Il repository storico `lost-95/cult-milano-gpsr` non si tocca.
 
-## 1. Situazione (4/11/2026)
+## 1. Decisioni (aggiornate al 4/11/2026)
 
-| Voce | Stato |
+| Voce | Decisione / stato |
 |---|---|
-| Dominio `in-shoes.it` | Acquistato il 3/11/2026 per IN SHOES SRL. |
-| DNS | Nameserver `ns81/ns82.domaincontrol.com` = **GoDaddy**. Accesso alla gestione DNS da definire in fase di pubblicazione. |
-| `in-shoes.it`, `www.in-shoes.it` | Puntano a indirizzi GoDaddy (`3.33.130.190`, `15.197.148.33`). **Fuori dal progetto.** |
-| `gpsr.in-shoes.it` | Nessun record. Da creare. |
-| Hosting | **Approvato: GitHub Pages su nuova organizzazione GitHub aziendale.** Non ancora creata. |
-| Repository | Pronto in locale, con workflow `.github/workflows/pages.yml` che pubblica solo `public/`. |
+| Account GitHub | **Account esistente usato per CULT Milano** (nome utente `<ACCOUNT>` da confermare). Nessuna nuova organizzazione o account. |
+| Amministratore | Un solo amministratore e sviluppatore. Un secondo account di continuità verrà aggiunto in futuro. |
+| Repository | `<ACCOUNT>/gpsr-in-shoes`, **pubblico**, separato dal repository storico. |
+| Hosting | GitHub Pages con sorgente **GitHub Actions** (`.github/workflows/pages.yml`). |
+| URL provvisorio | `https://<ACCOUNT>.github.io/gpsr-in-shoes/` |
+| Dominio | `https://gpsr.in-shoes.it/`, dominio di IN SHOES SRL. |
+| DNS | Nameserver GoDaddy (`ns81/ns82.domaincontrol.com`). Accesso amministrativo da verificare prima dei passi DNS. |
+| Autore commit | `l.santarelli@cult-milano.it` (solo in questo repository). |
 
-## 2. Cosa serve prima di iniziare
-- Un'email aziendale per creare l'organizzazione GitHub (meglio una casella condivisa, non personale).
-- Nome dell'organizzazione `<ORG>` (es. `in-shoes-srl`; da verificare che sia libero).
-- Almeno due proprietari dell'organizzazione con autenticazione a due fattori.
-- Una persona con accesso alla gestione DNS di `in-shoes.it` su GoDaddy.
+## 2. Procedura ufficiale GitHub (verificata sulla documentazione il 4/11/2026)
 
-## 3. Passi di pubblicazione
+Fonti: docs.github.com → Pages → *Verifying your custom domain*, *Managing a custom domain*, *Using custom workflows*, *Securing your site with HTTPS*.
 
-### A. GitHub (nessun effetto sul dominio)
-1. Creare l'organizzazione `<ORG>` (piano Free) e invitare il secondo proprietario.
-2. Creare il repository **pubblico** `<ORG>/gpsr-in-shoes`, vuoto (senza README). GitHub Pages gratuito richiede un repository pubblico. Il repository conterrà anche `docs/`, che non contiene dati riservati.
-3. Collegare il repository locale e fare il push:
+- **CNAME del sottodominio**: deve puntare a `<ACCOUNT>.github.io`, **senza** nome del repository e senza il dominio `*.pages.github.io` mostrato nelle impostazioni.
+- **Ordine**: GitHub raccomanda di *verificare* il dominio, poi di *aggiungerlo* nelle impostazioni Pages del repository, e **solo dopo** creare il CNAME. Creare il CNAME prima espone al rischio che un altro account usi il sottodominio.
+- **Verifica dominio (account personale)**: foto profilo → *Settings* → *Pages* (impostazioni del profilo, non del repository) → *Add a domain*. GitHub mostra il record TXT da creare, nella forma `_github-pages-challenge-<ACCOUNT>.<dominio>`. Il valore esatto si copia da GitHub. Il TXT va lasciato nel DNS anche dopo la verifica.
+  - Verificare un dominio protegge anche i suoi sottodomini immediati. La documentazione non dice esplicitamente se si può verificare direttamente il sottodominio `gpsr.in-shoes.it`. Si prova prima con `gpsr.in-shoes.it`; se GitHub non lo accetta si verifica `in-shoes.it`. Anche in quel caso si aggiunge solo un nuovo record TXT con nome `_github-pages-challenge-…`, che non tocca il sito principale né la posta.
+- **Workflow personalizzato**: il file `CNAME` non serve ed è ignorato. Il dominio si imposta in *Settings → Pages → Custom domain*.
+- **Permessi minimi** per `deploy-pages`: `pages: write` e `id-token: write`; più `contents: read` per leggere il codice. Ambiente predefinito: `github-pages`.
+- **HTTPS**: dopo il salvataggio del dominio GitHub controlla il DNS e richiede un certificato Let's Encrypt. Di solito serve meno di un'ora; l'opzione *Enforce HTTPS* può comparire fino a 24 ore dopo.
+- **Da evitare**: record wildcard (`*.in-shoes.it`), rischio di takeover. Se in futuro si aggiungono record CAA al dominio, uno deve autorizzare `letsencrypt.org`.
+
+## 3. Controllo del workflow (`.github/workflows/pages.yml`)
+
+| Requisito | Esito |
+|---|---|
+| Pubblica solo `public/` | ✅ `upload-pages-artifact` con `path: public`. Documentazione e script non vengono pubblicati. |
+| Permessi minimi | ✅ `contents: read`, `pages: write`, `id-token: write`. Nessun altro permesso. |
+| Credenziali | ✅ `checkout` con `persist-credentials: false`. |
+| Quando parte | Push su `main` o avvio manuale. Un solo deploy alla volta (`concurrency`). |
+| Controlli prima del deploy | ✅ File presente, H1 esatto, tre link presenti. Se falliscono, non pubblica. |
+| Versioni azioni | `configure-pages@v5`, `upload-pages-artifact@v4`, `deploy-pages@v4` (come negli esempi ufficiali); `checkout@v5`. |
+
+## 4. Passi di pubblicazione
+
+Prima di ogni passo DNS: screenshot della zona DNS di `in-shoes.it` su GoDaddy (serve per il rollback).
+
+### A. Repository e push
+1. **(Tu, nel browser)** Accedi con l'account `<ACCOUNT>` → *New repository* → nome `gpsr-in-shoes`, **Public**, **senza** README, .gitignore o licenza → *Create repository*.
+2. **(Io, con la tua approvazione)** Collego il repository e faccio il push:
    ```bash
-   git remote add origin https://github.com/<ORG>/gpsr-in-shoes.git
+   git remote add origin https://github.com/<ACCOUNT>/gpsr-in-shoes.git
    ```
    ```bash
    git push -u origin main
    ```
-4. Repository → *Settings → Pages → Build and deployment → Source* = **GitHub Actions**.
-5. Il workflow parte: esegue i controlli minimi (file, H1, tre link) e pubblica `public/`. Il sito è visibile su `https://<ORG>.github.io/gpsr-in-shoes/`. Provarlo prima di proseguire.
+   Al primo push Git Credential Manager apre il browser per l'accesso a GitHub: lo completi tu. Nessuna password passa da me.
 
-### B. Protezione del dominio (consigliata, prima del CNAME)
-6. Organizzazione → *Settings → Pages → Verified domains → Add a domain* → `gpsr.in-shoes.it`. GitHub mostra un record TXT. Verificare il sottodominio, non `in-shoes.it`, così il resto del dominio resta fuori dal progetto. Questo impedisce ad altri account GitHub di usare il sottodominio.
+### B. GitHub Pages e URL provvisorio
+3. **(Tu, con me)** Repository → *Settings → Pages → Build and deployment → Source* = **GitHub Actions**.
+4. Il workflow parte (scheda *Actions*), oppure si avvia a mano con *Run workflow*.
+5. **(Io)** Verifico `https://<ACCOUNT>.github.io/gpsr-in-shoes/` con `scripts/verifica.ps1 -SitoUrl …` e in anteprima desktop e smartphone.
 
-### C. DNS su GoDaddy (solo il sottodominio `gpsr`)
-7. Aggiungere esclusivamente questi due record. Non modificare né cancellare nessun record esistente:
+### C. Verifica del dominio (TXT)
+6. **(Tu)** *Settings del profilo → Pages → Add a domain* → `gpsr.in-shoes.it`. Copia nome e valore del TXT esattamente come li mostra GitHub.
+7. **(Tu su GoDaddy, con la mia approvazione)** Aggiungi **solo** quel record TXT. Il campo "Nome" va scritto senza `.in-shoes.it` finale.
+8. Controllo:
+   ```powershell
+   Resolve-DnsName -Type TXT _github-pages-challenge-<ACCOUNT>.gpsr.in-shoes.it
+   ```
+   Poi su GitHub: menu ⋯ accanto al dominio → *Continue verifying* → *Verify*.
 
-   | Tipo  | Nome (host) | Valore | TTL |
-   |-------|-------------|--------|-----|
-   | TXT   | `_github-pages-challenge-<ORG>.gpsr` | valore fornito da GitHub al passo 6 | 1 ora |
-   | CNAME | `gpsr` | `<ORG>.github.io` | 1 ora |
+### D. Dominio personalizzato e CNAME
+9. **(Tu)** Repository → *Settings → Pages → Custom domain* = `gpsr.in-shoes.it` → *Save*. Il controllo DNS risulterà in errore finché non c'è il CNAME: è normale.
+10. **(Tu su GoDaddy, con la mia approvazione)** Aggiungi **solo**:
 
-   Il nome esatto del record TXT va copiato da GitHub. In GoDaddy il campo "Nome" si scrive senza `.in-shoes.it` finale. Prima di salvare, fare uno screenshot della zona DNS: serve per il rollback.
-8. Tornare al passo 6 e premere **Verify**.
+    | Tipo  | Nome  | Valore | TTL |
+    |-------|-------|--------|-----|
+    | CNAME | `gpsr` | `<ACCOUNT>.github.io` | 1 ora |
 
-### D. Dominio personalizzato e HTTPS
-9. Repository → *Settings → Pages → Custom domain* = `gpsr.in-shoes.it` → Save. Attendere il controllo DNS.
-10. Attivare **Enforce HTTPS**. Il certificato Let's Encrypt può richiedere fino a 24 ore.
-11. Eseguire la [CHECKLIST_TEST.md](CHECKLIST_TEST.md) completa sul dominio reale.
-12. Solo dopo la checklist firmata: generare i QR con `https://gpsr.in-shoes.it/` per tutti e tre i marchi.
+11. Controllo:
+    ```powershell
+    Resolve-DnsName -Type CNAME gpsr.in-shoes.it
+    ```
 
-## 4. Verifiche dopo la pubblicazione
-
-```powershell
-nslookup gpsr.in-shoes.it
-curl.exe -I https://gpsr.in-shoes.it/
-curl.exe -I http://gpsr.in-shoes.it/
-powershell -ExecutionPolicy Bypass -File scripts\verifica.ps1 -SitoUrl https://gpsr.in-shoes.it/
-```
-
-Attesi: CNAME verso `<ORG>.github.io`; HTTPS `200`; HTTP reindirizza (`301`) a HTTPS; certificato valido (lucchetto, anche da smartphone); `in-shoes.it` e la posta funzionano come prima.
+### E. HTTPS e collaudo
+12. Quando GitHub mostra il controllo DNS riuscito e il certificato pronto: *Enforce HTTPS*. Se dopo qualche minuto il certificato non parte: *Remove*, reinserisci il dominio e *Save*.
+13. **(Io)** Verifiche finali:
+    ```powershell
+    curl.exe -I https://gpsr.in-shoes.it/
+    curl.exe -I http://gpsr.in-shoes.it/
+    powershell -ExecutionPolicy Bypass -File scripts\verifica.ps1 -SitoUrl https://gpsr.in-shoes.it/
+    ```
+    Attesi: HTTPS `200`, HTTP reindirizza (`301`) a HTTPS, certificato valido; `in-shoes.it` e la posta funzionano come prima.
+14. [CHECKLIST_TEST.md](CHECKLIST_TEST.md) completa, compresi CULT, DOCKSTEPS e OXS da desktop e da smartphone reali. Solo dopo: Fase 3 (redirect storico e nuovi QR).
 
 ## 5. Aggiornamenti futuri
-Modifica in locale → `scripts/verifica.ps1` → commit → push su `main` (con approvazione) → il workflow ripubblica in pochi minuti. Se qualcosa va storto: [ROLLBACK.md](ROLLBACK.md).
-
-Prima del primo deploy controllare che le versioni delle azioni nel workflow (`checkout`, `configure-pages`, `upload-pages-artifact`, `deploy-pages`) siano ancora le più recenti consigliate da GitHub.
+Modifica autorizzata → `scripts/verifica.ps1` → commit → push su `main` (con approvazione) → il workflow ripubblica in pochi minuti. Problemi: [ROLLBACK.md](ROLLBACK.md).
 
 ## 6. Anteprima locale
 
@@ -77,4 +102,4 @@ Prima del primo deploy controllare che le versioni delle azioni nel workflow (`c
 python -m http.server 8000 --bind 127.0.0.1 --directory public
 ```
 
-Apri http://localhost:8000/ . Per provarla da smartphone sulla stessa Wi-Fi togli `--bind 127.0.0.1` e apri `http://<IP-del-PC>:8000/` (potrebbe servire consentire Python nel firewall). L'anteprima locale non ha HTTPS: HTTPS si verifica solo sul dominio pubblicato.
+Apri http://localhost:8000/ . Da smartphone sulla stessa Wi-Fi togli `--bind 127.0.0.1` e apri `http://<IP-del-PC>:8000/`. HTTPS si verifica solo sul dominio pubblicato.

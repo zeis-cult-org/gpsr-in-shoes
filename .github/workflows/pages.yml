@@ -1,6 +1,7 @@
 # Pubblica la sola cartella public/ su GitHub Pages.
-# Non fa nulla finché il repository non è sul GitHub dell'organizzazione aziendale
-# e Pages non è attivato con sorgente "GitHub Actions" (vedi docs/PUBBLICAZIONE.md).
+# Non fa nulla finché il repository non è su GitHub e Pages non è attivato
+# con sorgente "GitHub Actions" (vedi docs/PUBBLICAZIONE.md).
+# Permessi: il minimo richiesto da deploy-pages (pages + id-token) più la sola lettura del codice.
 name: Pubblica snodo GPSR
 
 on:
@@ -25,6 +26,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - name: Controlli minimi prima della pubblicazione
         run: |

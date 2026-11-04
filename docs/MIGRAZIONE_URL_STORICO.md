@@ -1,4 +1,4 @@
-# Fase 2 — Migrazione dell'URL storico (SOLO PIANO, NON APPLICATO)
+# Fase 3 — Migrazione dell'URL storico (SOLO PIANO, NON APPLICATO)
 
 Da `https://lost-95.github.io/cult-milano-gpsr/` a `https://gpsr.in-shoes.it/`.
 

@@ -16,7 +16,7 @@ Snodo di link statico gestito da **IN SHOES SRL**. Chi inquadra il QR code su un
 |---|---|
 | Indirizzo ufficiale | `gpsr.in-shoes.it`. Dominio `in-shoes.it` acquistato il 3/11/2026 per IN SHOES SRL. |
 | Sito principale | `in-shoes.it` / `www.in-shoes.it` **fuori dal progetto**: non si toccano. Si lavora solo sul sottodominio `gpsr`. |
-| Hosting | GitHub Pages su una **nuova organizzazione GitHub aziendale**, separata da account personali. Non ancora creata. |
+| Hosting | GitHub Pages con GitHub Actions, sull'**account GitHub esistente usato per CULT Milano** (nessuna nuova organizzazione o account), repository `gpsr-in-shoes` separato da quello storico. Un secondo account di continuità verrà aggiunto in futuro. |
 | DNS | Nessun record modificato. L'accesso alla gestione DNS si affronta in fase di pubblicazione. |
 | Pagina | `public/index.html` è la versione definitiva approvata, inserita senza modifiche (H1 già aggiornato). |
 | Vecchi QR | Portano a scarpe di tutti e tre i marchi: in futuro andranno alla **homepage dello snodo**, mai direttamente a CULT. |
@@ -34,7 +34,7 @@ Snodo di link statico gestito da **IN SHOES SRL**. Chi inquadra il QR code su un
 VECCHI QR (già sulle scarpe di CULT, DOCKSTEPS, OXS — non modificabili)
    └─► https://lost-95.github.io/cult-milano-gpsr/      (sito storico, account GitHub personale)
           oggi: pagina storica + 10 PDF
-          domani (Fase 2, solo dopo approvazione): inoltro allo snodo ─┐
+          domani (Fase 3, solo dopo approvazione): inoltro allo snodo ─┐
                                                                        │
 NUOVI QR (tutti e tre i marchi)                                        │
    └─► https://gpsr.in-shoes.it/   ◄──────────────────────────────────┘
@@ -58,7 +58,7 @@ gpsr-in-shoes/
 │   ├── PUBBLICAZIONE.md
 │   ├── CHECKLIST_TEST.md
 │   ├── ROLLBACK.md
-│   └── MIGRAZIONE_URL_STORICO.md   ← Fase 2: solo piano, non applicato
+│   └── MIGRAZIONE_URL_STORICO.md   ← Fase 3: solo piano, non applicato
 └── scripts/
     └── verifica.ps1      ← controlli automatici (H1, link, risorse esterne, raggiungibilità)
 ```
@@ -85,4 +85,4 @@ Controlla: presenza di `public/index.html`, H1 esatto, presenza dei tre URL, ass
 - Non ridisegnare la pagina, non aggiungere funzioni, non cambiare le tre destinazioni.
 - Autore dei commit: email aziendale, impostata solo in questo repository (non a livello globale).
 - File di testo con fine riga LF (`.gitattributes`), così l'HTML approvato resta identico byte per byte.
-- Il repository storico `lost-95/cult-milano-gpsr` non si tocca finché la Fase 2 non è approvata.
+- Il repository storico `lost-95/cult-milano-gpsr` non si tocca finché la Fase 3 (redirect dei vecchi QR) non è approvata.
