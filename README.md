@@ -53,6 +53,8 @@ NUOVI QR (tutti e tre i marchi)                                        │
 gpsr-in-shoes/
 ├── .github/workflows/
 │   └── pages.yml         ← pubblicazione su GitHub Pages (solo public/)
+├── CONSEGNA_UFFICIO_ETICHETTE/   ← materiale per l'addetta etichette: file di stampa, istruzioni PDF (NON pubblicato)
+├── CONSEGNA_UFFICIO_ETICHETTE.zip   ← stessa cartella in ZIP, da inviare via OneDrive o email
 ├── assets/qr-gpsr/       ← QR ufficiale: master SVG/PDF/PNG, scheda tipografia, QA, script (NON pubblicato)
 ├── public/               ← SOLO questa cartella va online
 │   └── index.html        ← pagina approvata, definitiva, non modificare

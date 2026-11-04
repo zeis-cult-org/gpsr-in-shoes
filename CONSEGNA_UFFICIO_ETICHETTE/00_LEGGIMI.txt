@@ -1,0 +1,18 @@
+QR CODE GPSR - CONSEGNA PER L'UFFICIO ETICHETTE
+IN SHOES SRL - versione 1 del 4 novembre 2026
+
+Il QR e' UNICO per le calzature CULT, DOCKSTEPS e OXS.
+Inquadrandolo si apre: https://gpsr.in-shoes.it/
+
+COSA C'E' IN QUESTA CARTELLA
+  0_ISTRUZIONI_QR_GPSR.pdf   -> LEGGERE PRIMA: istruzioni, regole e checklist
+  1_FILE_PER_LA_STAMPA\QR_GPSR_25x25mm_STAMPA.pdf   -> IL FILE DA USARE PER LA STAMPA
+  2_FILE_DI_SUPPORTO\QR_GPSR_25x25mm_GRAFICA.svg    -> solo per programmi di grafica che non accettano il PDF
+  2_FILE_DI_SUPPORTO\QR_GPSR_ANTEPRIMA.png          -> solo anteprima, NON per la stampa
+
+REGOLE
+  - Dimensione 25 x 25 mm, bordo bianco compreso. Nero pieno su fondo bianco.
+  - Non rigenerare, modificare, ritagliare, ridurre o deformare il QR.
+  - Prima della produzione: prova di stampa e checklist (vedi istruzioni).
+  - La produzione definitiva parte solo dopo l'approvazione scritta
+    del responsabile del progetto GPSR.

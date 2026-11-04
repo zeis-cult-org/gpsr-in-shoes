@@ -21,6 +21,8 @@ Questa cartella **non** viene pubblicata sul sito: il workflow pubblica solo `pu
 | `genera_qr.py` | Rigenera i tre file (riproducibile byte per byte) |
 | `verifica_qr.py` | Controllo qualità automatico |
 | `requirements.txt` | Versioni esatte delle librerie Python |
+| `genera_consegna.py` | Crea `CONSEGNA_UFFICIO_ETICHETTE/` (file con nomi chiari + istruzioni PDF) e il relativo ZIP |
+| `verifica_consegna.py` | Controlla la consegna: file identici al master, QR leggibili, istruzioni complete, ZIP integro |
 
 ## Specifiche
 QR versione 3 (29 × 29 moduli), modalità byte, correzione **Q**, maschera 4, quiet zone 4 moduli; 37 moduli su 25,00 mm → modulo 0,676 mm; nero puro su bianco; nessun logo.

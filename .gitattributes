@@ -4,3 +4,7 @@
 # File binari del QR: nessuna conversione, SHA-256 invariati.
 *.pdf binary
 *.png binary
+
+# Consegna ufficio etichette: file conservati byte per byte (identici al contenuto dello ZIP).
+CONSEGNA_UFFICIO_ETICHETTE/** binary
+*.zip binary
